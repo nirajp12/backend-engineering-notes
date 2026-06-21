@@ -20,4 +20,12 @@ Why "Average" O(1)?
 Sometimes two books get assigned the same shelf. Now shelf 42 has 2 books and you have to look through both. That's a collision. If somehow all 1000 books land on shelf 42, you'd have to scan all 1000 — that's worst case O(n).
 But in practice, a good hash function spreads books evenly, so collisions are rare — hence average O(1).
 
+# Which List implementation do you use and when?
+Scenario                            Use  
 
+Frequent reads by indexArray        List
+Frequent insert/delete in middle    LinkedList
+No duplicates needed                HashSet
+No duplicates + insertion order     LinkedHashSet
+No duplicates + sorted order        TreeSet
+Fast Lookup by Key                  HashMap

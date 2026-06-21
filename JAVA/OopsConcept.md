@@ -168,3 +168,14 @@ Quick Rules to RememberStatic Methods: A static method (like public static void 
 Because of this, static methods cannot use non-static variables.Accessing: Always access static items using the Class name (ClassName.variable) rather than the object name. It keeps your code clear.
 
 The Golden Rule: Static methods can only access other static variables or static methods. They cannot look at non-static variables because they don't belong to any specific object!
+
+
+## Polymorphism = same method, different behavior. Example: shape.draw() behaves differently for Circle and Rectangle. Two types — overloading (same method name, different params) and overriding (child changes parent method).
+
+## Abstraction = hiding complex implementation, showing only what's necessary. Example — you call list.add() without knowing how it works internally.
+
+Pillar          One Line
+Encapsulation   Hide data using private + getters/setters
+Inheritance     Child class reuses parent class methods
+Polymorphism    Same method, different behavior
+Abstraction     Hide complexity, show only what's needed
