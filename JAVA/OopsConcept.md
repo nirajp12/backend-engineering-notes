@@ -6,8 +6,9 @@ Method overloading allows you to use the same method name for different tasks as
 ## why we need this concept??
 Improved Readability & Clean APIs: Instead of naming methods calculateAreaInt, calculateAreaDouble, or calculateAreaCircle, you can simply name all of them calculateArea. This makes APIs intuitive and highly expressive.
 
-Reduced Complexity: You only have to memorize one method name for a specific action, reducing the cognitive load on developers.Code 
-Reusability: It saves memory and lines of code. For example, the System.out.println() method is heavily overloaded, allowing you to print strings, integers, and booleans without writing distinct printing logic for every data type.
+Reduced Complexity: You only have to memorize one method name for a specific action, reducing the cognitive load on developers.
+
+Code Reusability: It saves memory and lines of code. For example, the System.out.println() method is heavily overloaded, allowing you to print strings, integers, and booleans without writing distinct printing logic for every data type.
 
 Compile-Time Polymorphism: The compiler determines exactly which method to execute at compile-time by matching the arguments you pass, ensuring optimal execution speed without runtime performance penalties.
 
