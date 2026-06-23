@@ -70,6 +70,9 @@ public class BankAccount {
 }
 
 
+Encapsulation is 1 of the principle of oops where we control the access to sensitive data by making it private and not directly accessible for example tenant details like its api key or billing info is not directly accesible by other class in order to access they need to call the method which will return the required data. this ensures no class can accidentally or maliciously modify sensitive tenant data directly.
+
+
 # Constructors
 
 ## What is constructor?
@@ -170,12 +173,28 @@ Because of this, static methods cannot use non-static variables.Accessing: Alway
 The Golden Rule: Static methods can only access other static variables or static methods. They cannot look at non-static variables because they don't belong to any specific object!
 
 
-## Polymorphism = same method, different behavior. Example: shape.draw() behaves differently for Circle and Rectangle. Two types — overloading (same method name, different params) and overriding (child changes parent method).
-
-## Abstraction = hiding complex implementation, showing only what's necessary. Example — you call list.add() without knowing how it works internally.
-
 Pillar          One Line
 Encapsulation   Hide data using private + getters/setters
 Inheritance     Child class reuses parent class methods
 Polymorphism    Same method, different behavior
 Abstraction     Hide complexity, show only what's needed
+
+
+## Inheritance
+Inheritance is a concept where a classs can use other classes methods using extends keyword i.e a child class can access the methods present in the parent class. Example their is a user class and tenant class now the tenant is also a user it will also have name and email so it extends user class. I use inheritance only when the relationship is IS-A. Tenant IS A User — valid. If it's HAS-A relationship, I use composition instead. When i dont want classes to be tightly coupled with each other i will not use it e.g if  i change something in the parent class it will affect all child classes which are extending it.
+
+## Polymorphism
+Polymorphism means same method name, different behavior. There are two types.
+Compile time polymorphism is method overloading — in my notification service I have multiple send() methods, one takes just a message, another takes message and email. Which one gets called is decided at compile time.
+Runtime polymorphism is method overriding — in my payment module I have a base class PaymentGateway with processPayment(). RazorpayGateway and StripeGateway both override it differently. Which implementation runs is decided at runtime depending on which object is created. In my multi-tenant platform, I use runtime polymorphism for payment gateway integration — RazorpayGateway and StripeGateway both extend PaymentGateway and override processPayment() differently."
+
+ Polymorphism = same method, different behavior. Example: shape.draw() behaves differently for Circle and Rectangle. Two types — overloading (same method name, different params) and overriding (child changes parent method).
+
+
+## Abstraction
+
+Abstraction means hiding complex implementation and showing only what is necessary. example Google pay we just scan enter the amount and press send it works money is sent tot the user accounts i dont know the which bank api is being called how it is checking the pin etc. in java we implement abstraction by defining a abstract class in that there can be a abstract method which is compulsary for the child class to implement it. Unlike interface which is just a contract which shows what to do how you do it doesnt matter.
+
+Abstraction = hiding complex implementation, showing only what's necessary. Example — you call list.add() without knowing how it works internally.
+
+
