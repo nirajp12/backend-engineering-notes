@@ -354,3 +354,10 @@ The gateway also authenticated tenants via API keys, logged every request and re
 
 
 
+"Authentication means verifying who the user is — proving identity. Authorization means checking what that authenticated user is allowed to do — their permissions.
+In my API Gateway, when a request comes with x-api-key, I first decrypt it to extract the tenant name — this confirms the tenant's identity, that's authentication. Then I check the subscription table to see if this tenant has access to this specific API — that's authorization. So authentication answers 'who are you', authorization answers 'what can you do'. A tenant could be authenticated with a valid key but still get a 403 if they're not subscribed to that particular API — that's authorization failing even though authentication passed."
+
+
+
+
+
