@@ -225,3 +225,31 @@ Plain `@Autowired` is mandatory by default — a missing bean would fail startup
 ## 8. One-Paragraph Summary
 
 Spring builds and manages objects (beans) so you don't have to wire dependencies by hand. **Field injection** sets dependencies directly on private fields via reflection *after* an object is built, which means broken/incomplete objects can silently exist until something crashes at runtime. **Constructor injection** demands dependencies *before* an object can be built at all, which the Java compiler itself enforces — making it impossible to end up with a half-wired object, easier to test without Spring, and faster to catch design problems (circular dependencies, missing beans, ambiguous beans) at startup instead of in production. For real Spring Boot projects, constructor injection is the standard; field injection is mostly seen in legacy code or quick test classes.
+
+
+"IoC stands for Inversion of Control — instead of us creating and managing objects manually using new, we give that responsibility to the Spring framework. Spring creates, manages, and destroys objects for us.
+DI — Dependency Injection — is how Spring implements IoC. There are 3 types — field injection, constructor injection, and setter injection.
+Constructor injection is preferred because dependencies can be made final — immutable, they are clearly visible in the constructor signature, and if a required dependency is missing the application fails immediately at startup instead of throwing NullPointerException in production.
+In my API Gateway, TenantService depends on TenantRepository. Instead of creating it with new, Spring injects it through the constructor automatically. If TenantRepository bean is missing, app won't even start — which is safer than discovering it at runtime."
+
+
+
+"Middleware is code that sits between incoming request and the controller. It intercepts every request and does something before passing it forward.
+In Spring Boot middleware is implemented as Filters and Interceptors.
+Filter runs before Spring processes the request — I used this in my API Hub to extract and validate the x-api-key. If invalid, request stops there with 401. If valid, it passes forward to the controller.
+Interceptor runs after the controller processes the request — I used this for wallet billing. After getting a successful 200 response from the vendor API, the interceptor deducts the cost from tenant wallet and logs the transaction.
+Filters are also used for CORS — allowing or blocking cross-origin requests before they reach Spring."
+
+
+Filter vs Interceptor — One Table To Remember
+                Filter                      Interceptor
+    Runs        Before Spring               After controller    
+    Your usage  API key validation          Wallet deduction
+    Use for     Auth, CORS, Logging         Business post-processing
+
+
+
+When Spring Boot starts, first main() runs and SpringApplication.run() is called. Then @SpringBootApplication is processed which triggers component scan — Spring finds all classes marked with @Component, @Service, @Repository, @Controller in your package.
+For each class found, Spring creates a bean and stores it in ApplicationContext — which is Spring's container, like a big map of all managed objects. Dependencies are injected in order — so if TenantService needs TenantRepository, TenantRepository is created first.
+Then Auto Configuration runs — Spring checks what JARs are in classpath. In my project, seeing MySQL driver and JPA, it automatically configured DataSource and EntityManager without me writing any config.
+Then embedded Tomcat starts on port 8080 and DispatcherServlet registers — which acts as Front Controller routing every incoming HTTP request to the correct controller method."
